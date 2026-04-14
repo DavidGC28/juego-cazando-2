@@ -18,7 +18,7 @@ let comiday=50;
 const ANCHOCOMIDA=30;
 const ALTURACOMIDA=30;
 
-//ctx.fillStyle = "#be2222";
+//ctx.fillStyle = "#7e2970";
 
 // FUNCION PRINCIPAL PARA GRAFICAR EL GATO Y LA COMIDA
 function graficarRectangulo(x,y,ancho,alto,color){
@@ -89,11 +89,13 @@ function moverAbajo(){
     }
 }
 
+
 document.getElementById("btnArriba").onclick = () => moverArriba();
 document.getElementById("btnAbajo").onclick = () => moverAbajo();
 document.getElementById("btnIzquierda").onclick = () => moverIzquierda();
 document.getElementById("btnDerecha").onclick = () => moverDerecha();
 document.getElementById("btnReiniciar").onclick = () => reiniciarJuego();
+
 
 function detectarColision(){
     if(comidax+ANCHOCOMIDA > gatox &&
@@ -109,7 +111,7 @@ function detectarColision(){
             comiday=generarAleatorio(0,canvas.height - ALTURACOMIDA);
             graficarComida();
             incrementarPuntos();
-            tiempo=10;
+            tiempo=30;
     }
 }
 
@@ -144,7 +146,7 @@ temporizador=setInterval(function(){
 
 function reiniciarJuego(){    
     puntosGato=0;
-    tiempo=10;
+    tiempo=30;
     cargarGraficos();
     mostrarEnSpan("puntos",puntosGato);
     mostrarEnSpan("tiempo",tiempo);

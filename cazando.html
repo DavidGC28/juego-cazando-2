@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Juego Cazando</title>
+  <title>Theo contra todos</title>
   <link rel="stylesheet" href="cazando.css">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="cazando.css">
   <script src="utils.js"></script>
   
 
@@ -10,19 +13,19 @@
 
 <body onload="iniciarJuego()">
 
-  <h1>Juego Cazando</h1>
-  <p>Autor: Vinicio Ayala</p>
+  <h1>Theo contra todos</h1>
+  <p>Autor: David G </p>
 
 
   <canvas id="areaJuego" width="500" height="500"></canvas>
-  <div class="controles">
-    <button id="btnArriba">⬆</button>
-    <br>
-    <button id="btnIzquierda">⬅</button>
-    <button id="btnAbajo">⬇</button>
-    <button id="btnDerecha">➡</button>
-  </div>
-
+  <div class="control-pad">
+  <button class="btn-direccion arriba" onclick="mover('arriba')">↑</button>
+  <button class="btn-direccion izquierda" onclick="mover('izquierda')">←</button>
+  <button class="btn-direccion derecha" onclick="mover('derecha')">→</button>
+  <button class="btn-direccion abajo" onclick="mover('abajo')">↓</button>
+</div>
+  <div class="contenedor-juego">
+  <img src="teo contra todos.png" class="imagen-lateral">
 
   <div class="panel">
     <span>Puntos: <span id="puntos">0</span></span>
@@ -36,5 +39,9 @@
   <p id="mensaje"></p>
   <script src="cazando.js"></script>
 
+  
+  
+</div>
+
 </body>
-</html>
+</html>.
