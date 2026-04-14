@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Juego Cazando</title>
+  <link rel="stylesheet" href="cazando.css">
+  <script src="utils.js"></script>
+  
+
+</head>
+
+<body onload="iniciarJuego()">
+
+  <h1>Juego Cazando</h1>
+  <p>Autor: Vinicio Ayala</p>
+
+
+  <canvas id="areaJuego" width="500" height="500"></canvas>
+  <div class="controles">
+    <button id="btnArriba">⬆</button>
+    <br>
+    <button id="btnIzquierda">⬅</button>
+    <button id="btnAbajo">⬇</button>
+    <button id="btnDerecha">➡</button>
+  </div>
+
+
+  <div class="panel">
+    <span>Puntos: <span id="puntos">0</span></span>
+    <span>Tiempo: <span id="tiempo">10</span></span>
+  </div>
+
+  <div class="controles">
+    <button id="btnReiniciar">REINICIAR</button>
+  </div>
+
+  <p id="mensaje"></p>
+  <script src="cazando.js"></script>
+
+</body>
+</html>
