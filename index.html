@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Theo contra todos</title>
+  <link rel="stylesheet" href="cazando.css">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="cazando.css">
+  <script src="utils.js"></script>
+  
+
+</head>
+
+<body onload="iniciarJuego()">
+
+  <h1>Theo contra todos</h1>
+  <p>Autor: David G </p>
+
+
+  <canvas id="areaJuego" width="500" height="500"></canvas>
+  <div class="control-pad">
+  <button class="btn-direccion arriba" onclick="mover('arriba')">↑</button>
+  <button class="btn-direccion izquierda" onclick="mover('izquierda')">←</button>
+  <button class="btn-direccion derecha" onclick="mover('derecha')">→</button>
+  <button class="btn-direccion abajo" onclick="mover('abajo')">↓</button>
+</div>
+  <div class="contenedor-juego">
+  <img src="teo contra todos.png" class="imagen-lateral">
+
+  <div class="panel">
+    <span>Puntos: <span id="puntos">0</span></span>
+    <span>Tiempo: <span id="tiempo">10</span></span>
+  </div>
+
+  <div class="controles">
+    <button id="btnReiniciar">REINICIAR</button>
+  </div>
+
+  <p id="mensaje"></p>
+  <script src="cazando.js"></script>
+
+  
+  
+</div>
+
+</body>
+</html>.
