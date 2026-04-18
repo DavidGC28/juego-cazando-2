@@ -45,8 +45,8 @@ function limpiarCanva(){
 // FUNCION INICIAR JUEGO
 function iniciarJuego(){
     // gato al centro del rectangulo
-    gatox = (canvas.width / 2) - (ANCHOGATO / 2);     
-    gatoy = (canvas.height / 2) - (ALTURAGATO / 2);
+    gatox = (canvas.width -300) - (ANCHOGATO / 2);     
+    gatoy = (canvas.height -300) - (ALTURAGATO / 2);
 
     //COMIDA EN UNA COORDENADA   ALEATORIA
     comidax=generarAleatorio(0,canvas.width - ANCHOCOMIDA);
