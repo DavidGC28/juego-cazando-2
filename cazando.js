@@ -1,153 +1,92 @@
-let canvas = document.getElementById("areaJuego");
-let ctx = canvas.getContext("2d");
+const canvas = document.getElementById("areaJuego");
+const ctx = canvas.getContext("2d");
 
-// GATO
-let gatox=0;
-let gatoy=0;
-let puntosGato=0;
-let tiempo=10;
-let temporizador;
+let gatox = 225;
+let gatoy = 225;
+let comidax = 100;
+let comiday = 100;
+let puntosGato = 0;
+let tiempo = 15;
+let temporizador = null;
 
-const ANCHOGATO=50;
-const ALTURAGATO=50;
-const VELOCIDAD=15;
+const ANCHO_GATO = 50;
+const ALTO_GATO = 50;
+const VELOCIDAD = 20;
 
-// COMIDA
-let comidax=50;
-let comiday=50;
-const ANCHOCOMIDA=30;
-const ALTURACOMIDA=30;
-
-//ctx.fillStyle = "#7e2970";
-
-// FUNCION PRINCIPAL PARA GRAFICAR EL GATO Y LA COMIDA
-function graficarRectangulo(x,y,ancho,alto,color){
-    ctx.fillStyle = color;
-    ctx.fillRect(x,y,ancho,alto);
+// 2. Esta función se activa por el <body onload="iniciarJuego()">
+function iniciarJuego() {
+    resetJuego();
 }
 
-// FUNCION PARA GRAFICAR GATO
-function graficarGato(){    
-    graficarRectangulo(gatox,gatoy,ANCHOGATO,ALTURAGATO,"#000000");
-}
+function dibujar() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-// FUNCION PARA GRAFICAR COMIDA
-function graficarComida(){
-    graficarRectangulo(comidax,comiday,ANCHOCOMIDA,ALTURACOMIDA,"#ff0000");
-}
+    // Dibujar a Theo (Negro)
+    ctx.fillStyle = "black";
+    ctx.fillRect(gatox, gatoy, ANCHO_GATO, ALTO_GATO);
 
-// LIMPIAR EL CANVAS "PANTALLA DE 500X500"
-function limpiarCanva(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-}
+    // Dibujar Comida (Rojo)
+    ctx.fillStyle = "red";
+    ctx.fillRect(comidax, comiday, 30, 30);
 
-
-// FUNCION INICIAR JUEGO
-function iniciarJuego(){
-    // gato al centro del rectangulo
-    gatox = (canvas.width -300) - (ANCHOGATO / 2);     
-    gatoy = (canvas.height -300) - (ALTURAGATO / 2);
-
-    //COMIDA EN UNA COORDENADA   ALEATORIA
-    comidax=generarAleatorio(0,canvas.width - ANCHOCOMIDA);
-    comiday=generarAleatorio(0,canvas.height - ALTURACOMIDA);
-    
-    graficarGato();
-    graficarComida();
-    //incrementarPuntos();
-    //restarTiempo();
-}
-
-const LIMITE_X = canvas.width - ANCHOGATO; 
-const LIMITE_Y = canvas.height - ALTURAGATO;
-
-function moverIzquierda(){
-    if(gatox>0){
-        gatox-=10;
-        cargarGraficos();
-    }
-}
-
-function moverDerecha(){
-    if (gatox<LIMITE_X){
-        gatox += 10;
-       cargarGraficos();
-    }
-}
-
-function moverArriba(){
-    if(gatoy>0){
-        gatoy -= 10;
-        cargarGraficos();
-    }
-}
-
-function moverAbajo(){
-    if(gatoy<LIMITE_Y){
-        gatoy += 10;
-        cargarGraficos();
-    }
-}
-
-
-document.getElementById("btnArriba").onclick = () => moverArriba();
-document.getElementById("btnAbajo").onclick = () => moverAbajo();
-document.getElementById("btnIzquierda").onclick = () => moverIzquierda();
-document.getElementById("btnDerecha").onclick = () => moverDerecha();
-document.getElementById("btnReiniciar").onclick = () => reiniciarJuego();
-
-
-function detectarColision(){
-    if(comidax+ANCHOCOMIDA > gatox &&
-       comidax <  gatox+ANCHOGATO && 
-       comiday+ALTURACOMIDA > gatoy &&
-       comiday < gatoy+ALTURAGATO){
-            alert("++++ TE ATRAPÉ ++++");
-            // aparecer en otro lado 
-            limpiarCanva(); 
-            graficarGato();
-
-            comidax=generarAleatorio(0,canvas.width - ANCHOCOMIDA);
-            comiday=generarAleatorio(0,canvas.height - ALTURACOMIDA);
-            graficarComida();
-            incrementarPuntos();
-            tiempo=30;
-    }
-}
-
-function cargarGraficos(){
-    limpiarCanva();
-    graficarGato();
-    graficarComida();
     detectarColision();
 }
 
-function incrementarPuntos(){
-    puntosGato+=1;
-    mostrarEnSpan("puntos",puntosGato);
-    if(puntosGato>=6){
-        alert("+++GANASTE+++");
-        clearInterval(temporizador);
-    }    
+// 3. Esta función se activa por los botones onclick="mover('...')"
+function mover(direccion) {
+    if (direccion === 'arriba' && gatoy > 0) gatoy -= VELOCIDAD;
+    if (direccion === 'abajo' && gatoy < canvas.height - ALTO_GATO) gatoy += VELOCIDAD;
+    if (direccion === 'izquierda' && gatox > 0) gatox -= VELOCIDAD;
+    if (direccion === 'derecha' && gatox < canvas.width - ANCHO_GATO) gatox += VELOCIDAD;
+    
+    dibujar();
 }
 
-function restarTiempo(){
-    tiempo-=1;
-    mostrarEnSpan("tiempo",tiempo);
-    if(tiempo<=0){
-        alert("+++GAME OVER+++");
-        clearInterval(temporizador);
+function detectarColision() {
+    if (gatox < comidax + 30 &&
+        gatox + ANCHO_GATO > comidax &&
+        gatoy < comiday + 30 &&
+        gatoy + ALTO_GATO > comiday) {
+        
+        puntosGato++;
+        document.getElementById("puntos").innerText = puntosGato;
+        
+        // Mover comida a lugar aleatorio
+        comidax = Math.floor(Math.random() * (canvas.width - 30));
+        comiday = Math.floor(Math.random() * (canvas.height - 30));
+        
+        if (puntosGato >= 6) {
+            alert("¡Theo ganó! Puntos totales: " + puntosGato);
+            resetJuego();
+        }
     }
 }
 
-temporizador=setInterval(function(){
-    restarTiempo();
-},1000);
+function resetJuego() {
+    puntosGato = 0;
+    tiempo = 15;
+    gatox = 225;
+    gatoy = 225;
+    comidax = Math.floor(Math.random() * 400);
+    comiday = Math.floor(Math.random() * 400);
 
-function reiniciarJuego(){    
-    puntosGato=0;
-    tiempo=30;
-    cargarGraficos();
-    mostrarEnSpan("puntos",puntosGato);
-    mostrarEnSpan("tiempo",tiempo);
+    document.getElementById("puntos").innerText = "0";
+    document.getElementById("tiempo").innerText = "15";
+
+    if (temporizador) clearInterval(temporizador);
+    
+    temporizador = setInterval(() => {
+        tiempo--;
+        document.getElementById("tiempo").innerText = tiempo;
+        if (tiempo <= 0) {
+            clearInterval(temporizador);
+            alert("¡GAME OVER!");
+            resetJuego();
+        }
+    }, 1000);
+
+    dibujar();
 }
+
+// Conectar el botón de reiniciar del HTML
+document.getElementById("btnReiniciar").onclick = resetJuego;
