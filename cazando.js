@@ -50,8 +50,10 @@ function detectarColision() {
         
         puntosGato++;
         document.getElementById("puntos").innerText = puntosGato;
-        
-        // Mover comida a lugar aleatorio
+       
+        tiempo =15; // Reiniciar el tiempo cada vez que se come la comida
+        document.getElementById("tiempo").innerText = tiempo;
+      
         comidax = Math.floor(Math.random() * (canvas.width - 30));
         comiday = Math.floor(Math.random() * (canvas.height - 30));
         
@@ -87,6 +89,8 @@ function resetJuego() {
 
     dibujar();
 }
+
+
 
 // Conectar el botón de reiniciar del HTML
 document.getElementById("btnReiniciar").onclick = resetJuego;
