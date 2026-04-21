@@ -50,14 +50,16 @@ function detectarColision() {
         
         puntosGato++;
         document.getElementById("puntos").innerText = puntosGato;
+        
+
        
         tiempo =15; // Reiniciar el tiempo cada vez que se come la comida
         document.getElementById("tiempo").innerText = tiempo;
-      
+      tiempo = tiempo-1
         comidax = Math.floor(Math.random() * (canvas.width - 30));
         comiday = Math.floor(Math.random() * (canvas.height - 30));
         
-        if (puntosGato >= 6) {
+        if (puntosGato >= 10) {
             alert("¡Theo ganó! Puntos totales: " + puntosGato);
             resetJuego();
         }
